@@ -1,33 +1,15 @@
 public class TennisGame {
 
-    public static String getScore(String player1Name, String player2Name, int m_score1, int m_score2) {
+    public static String getScore(String nameOfPlayerOne, String nameOfPlayerTwo, int scoreOfPlayerOne, int scoreOfPlayerTwo) {
         String score = "";
         int tempScore=0;
-        if (m_score1==m_score2)
+        if (scoreOfPlayerOne==scoreOfPlayerTwo)
         {
-            switch (m_score1)
-            {
-                case 0:
-                    score = "Love-All";
-                    break;
-                case 1:
-                    score = "Fifteen-All";
-                    break;
-                case 2:
-                    score = "Thirty-All";
-                    break;
-                case 3:
-                    score = "Forty-All";
-                    break;
-                default:
-                    score = "Deuce";
-                    break;
-
-            }
+            score = getScoreOfPlayer(scoreOfPlayerOne);
         }
-        else if (m_score1>=4 || m_score2>=4)
+        else if (scoreOfPlayerOne>=4 || scoreOfPlayerTwo>=4)
         {
-            int minusResult = m_score1-m_score2;
+            int minusResult = scoreOfPlayerOne-scoreOfPlayerTwo;
             if (minusResult==1) score ="Advantage player1";
             else if (minusResult ==-1) score ="Advantage player2";
             else if (minusResult>=2) score = "Win for player1";
@@ -37,24 +19,53 @@ public class TennisGame {
         {
             for (int i=1; i<3; i++)
             {
-                if (i==1) tempScore = m_score1;
-                else { score+="-"; tempScore = m_score2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
+                if (i==1) tempScore = scoreOfPlayerOne;
+                else { score+="-"; tempScore = scoreOfPlayerTwo;}
+                score = getTempScore(score, tempScore);
             }
+        }
+        return score;
+    }
+
+    private static String getTempScore(String score, int tempScore) {
+        switch(tempScore)
+        {
+            case 0:
+                score+="Love";
+                break;
+            case 1:
+                score+="Fifteen";
+                break;
+            case 2:
+                score+="Thirty";
+                break;
+            case 3:
+                score+="Forty";
+                break;
+        }
+        return score;
+    }
+
+    private static String getScoreOfPlayer(int scoreOfPlayerOne) {
+        String score;
+        switch (scoreOfPlayerOne)
+        {
+            case 0:
+                score = "Love-All";
+                break;
+            case 1:
+                score = "Fifteen-All";
+                break;
+            case 2:
+                score = "Thirty-All";
+                break;
+            case 3:
+                score = "Forty-All";
+                break;
+            default:
+                score = "Deuce";
+                break;
+
         }
         return score;
     }
